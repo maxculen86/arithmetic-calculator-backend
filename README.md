@@ -4,6 +4,7 @@ This is the backend service for the Arithmetic Calculator application. It provid
 
 
 ## Project Structure
+```bash
 arithmetic-calculator-backend/
 ├── .serverless/
 ├── coverage/
@@ -25,6 +26,7 @@ arithmetic-calculator-backend/
 ├── serverless.yml
 ├── serverlessBKP.yml
 └── tsconfig.json
+```bash
 
 ## Technologies Used
 
@@ -49,7 +51,7 @@ arithmetic-calculator-backend/
 
 To clone this repository and set it up locally, follow these steps:
 ```bash
-git clone https://github.com/YOUR-USERNAME/arithmetic-calculator-backend.git
+git clone https://github.com/maxculen86/arithmetic-calculator-backend.git
 ```
 2. Navigate to the project directory:
 ```bash
