@@ -108,7 +108,7 @@ functions:
           method: post
           private: true
   postConfirmation:
-    handler: src/handlers/postConfirmation.handler
+    handler: src/handlers/user/postConfirmation.handler
     events:
       - cognitoUserPool:
           pool: arithmeticcalculator1b6f88ba_userpool_1b6f88ba-dev
