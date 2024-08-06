@@ -40,11 +40,11 @@ arithmetic-calculator-backend/
 
 ## API Endpoints
 
- - POST - https://kxh5okxff7.execute-api.us-east-1.amazonaws.com/dev/initialize-db - Deployment use only. Check if the tables are creates and initialize them.
- - POST - https://f8lzov2sb3.execute-api.us-east-1.amazonaws.com/operation - Performs an operation.
- - POST - https://f8lzov2sb3.execute-api.us-east-1.amazonaws.com/update-balance - Update a balance for a given user.
- - GET - https://f8lzov2sb3.execute-api.us-east-1.amazonaws.com/user-records - Gets all records for the given user.
- - PATCH - https://f8lzov2sb3.execute-api.us-east-1.amazonaws.com/record-delete - Soft deletes a record.
+ - POST - https://kxh5okxff7.execute-api.us-east-1.amazonaws.com/v1/dev/initialize-db - Deployment use only. Check if the tables are creates and initialize them.
+ - POST - https://f8lzov2sb3.execute-api.us-east-1.amazonaws.com/v1/operation - Performs an operation.
+ - POST - https://f8lzov2sb3.execute-api.us-east-1.amazonaws.com/v1/update-balance - Update a balance for a given user.
+ - GET - https://f8lzov2sb3.execute-api.us-east-1.amazonaws.com/v1/user-records - Gets all records for the given user.
+ - PATCH - https://f8lzov2sb3.execute-api.us-east-1.amazonaws.com/v1/record-delete - Soft deletes a record.
 
 ## Setup and Deployment
 
@@ -113,7 +113,7 @@ Here are some examples of how to use the API endpoints:
 To perform a multiplication operation:
 
 ```bash
-curl --location 'https://f8lzov2sb3.execute-api.us-east-1.amazonaws.com/operation' \
+curl --location 'https://f8lzov2sb3.execute-api.us-east-1.amazonaws.com/v1/operation' \
 --header 'Content-Type: application/json' \
 --data '{
     "userId": "5478c428-4021-701e-1868-aad2da17725e",
@@ -130,7 +130,7 @@ This will multiply 5 and 3 for the user with ID "5478c428-4021-701e-1868-aad2da1
 To update a user's balance:
 
 ```bash
-curl --location 'https://f8lzov2sb3.execute-api.us-east-1.amazonaws.com/update-balance' \
+curl --location 'https://f8lzov2sb3.execute-api.us-east-1.amazonaws.com/v1/update-balance' \
 --header 'Content-Type: application/json' \
 --data '{
   "userId": "5478c428-4021-701e-1868-aad2da17725e",
@@ -143,7 +143,7 @@ Note: Replace “5478c428-4021-701e-1868-aad2da17725e” with an actual user ID 
 ### Get User Records
 To retrieve a user's records:
 ```bash
-curl --location 'https://f8lzov2sb3.execute-api.us-east-1.amazonaws.com/user-records?userId=5478c428-4021-701e-1868-aad2da17725e'
+curl --location 'https://f8lzov2sb3.execute-api.us-east-1.amazonaws.com/v1/user-records?userId=5478c428-4021-701e-1868-aad2da17725e'
 ```
 
 This will return the records for the user with ID "5478c428-4021-701e-1868-aad2da17725e".
@@ -151,7 +151,7 @@ Note: Replace “5478c428-4021-701e-1868-aad2da17725e” with an actual user ID 
 ### Delete a Record
 To delete a specific record:
 ```bash
-curl --location --request PATCH 'https://f8lzov2sb3.execute-api.us-east-1.amazonaws.com/record-delete' \
+curl --location --request PATCH 'https://f8lzov2sb3.execute-api.us-east-1.amazonaws.com/v1/record-delete' \
 --header 'Content-Type: application/json' \
 --data '{
   "userId": "5478c428-4021-701e-1868-aad2da17725e",
