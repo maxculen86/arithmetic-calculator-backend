@@ -1,0 +1,163 @@
+org: culen
+app: arithmetic-calculator
+service: arithmetic-calculator-backend
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - rds-db:connect
+          Resource: 
+            - arn:aws:rds-db:${aws:region}:${aws:accountId}:dbuser:${self:custom.rds.resourceId}/${self:custom.rds.username}
+        - Effect: Allow
+          Action:
+            - ssm:GetParameter
+          Resource: 
+            - arn:aws:ssm:${aws:region}:${aws:accountId}:parameter/arithmetic-calculator/${sls:stage}/db/*
+        - Effect: Allow
+          Action:
+            - ec2:CreateNetworkInterface
+            - ec2:DescribeNetworkInterfaces
+            - ec2:DeleteNetworkInterface
+          Resource: "*"
+        - Effect: Allow
+          Action:
+            - secretsmanager:GetSecretValue
+            - secretsmanager:DescribeSecret
+            - secretsmanager:ListSecrets
+          Resource: 
+            - "*"
+        - Effect: Allow
+          Action:
+            - cognito-idp:AdminUpdateUserAttributes
+          Resource: 
+            - arn:aws:cognito-idp:${aws:region}:${aws:accountId}:userpool/*
+        - Effect: Allow
+          Action:
+            - cognito-idp:ListUsers
+          Resource: 
+            - arn:aws:cognito-idp:${aws:region}:${aws:accountId}:userpool/${self:provider.environment.USER_POOL_ID}
+        - Effect: Allow
+          Action:
+            - cognito-identity:ListIdentityPools
+            - cognito-sync:*
+          Resource: 
+            - arn:aws:cognito-identity:${aws:region}:${aws:accountId}:identitypool/us-east-1:917e86c8-f3e0-405f-b23d-7612eb5d5c4a
+        - Effect: Allow
+          Action:
+            - cognito-idp:AdminUpdateUserAttributes
+          Resource: 
+            - arn:aws:cognito-idp:${aws:region}:${aws:accountId}:userpool/${self:provider.environment.USER_POOL_ID}
+
+  environment:
+    DB_HOST: ${self:custom.rds.host}
+    DB_PORT: ${self:custom.rds.port}
+    DB_NAME: postgres
+    DB_USER: ${self:custom.rds.username}
+    DB_SECRET_ARN: ${self:custom.rds.secretArn}
+    USER_POOL_ID: us-east-1_py2mgDFpf
+
+functions:
+  newOperation:
+    handler: src/handlers/operations/operations.newOperation
+    events:
+      - httpApi:
+          path: /operation
+          method: POST
+  updateBalance:
+    handler: src/handlers/user/updateBalance.handler
+    events:
+      - httpApi:
+          path: /update-balance
+          method: POST
+  getUserRecords:
+    handler: src/handlers/records/getUserRecords.handler
+    events:
+      - httpApi:
+          path: /user-records
+          method: GET
+  deleteRecord:
+    handler: src/handlers/records/deleteRecord.handler
+    events:
+      - httpApi:
+          path: /record-delete
+          method: PATCH
+  dbInitializer:
+    handler: src/db/sqlrunner.handler
+    package:
+      include:
+        - src/db/init.sql
+    vpc:
+      securityGroupIds:
+        - sg-01a261f5a4bf653ae
+        - sg-082a3b1cd7a2c7c11
+      subnetIds:
+        - subnet-01eff672ae9bc3cb8
+        - subnet-021bdb44628362a7f
+        - subnet-0f48892e145bee300
+        - subnet-0e8ed61af61022931
+        - subnet-0f6cf22fc35cf4203
+        - subnet-0a37aaa898d3a21ce
+    events:
+      - http:
+          path: initialize-db
+          method: post
+          private: true
+  postConfirmation:
+    handler: src/handlers/postConfirmation.handler
+    events:
+      - cognitoUserPool:
+          pool: arithmeticcalculator1b6f88ba_userpool_1b6f88ba-dev
+          trigger: PostConfirmation
+          existing: true
+    vpc:
+      securityGroupIds:
+        - sg-01a261f5a4bf653ae
+        - sg-082a3b1cd7a2c7c11
+      subnetIds:
+        - subnet-01eff672ae9bc3cb8
+        - subnet-021bdb44628362a7f
+        - subnet-0f48892e145bee300
+        - subnet-0e8ed61af61022931
+        - subnet-0f6cf22fc35cf4203
+        - subnet-0a37aaa898d3a21ce
+
+custom:
+  scripts:
+    hooks:
+      'after:deploy:deploy': serverless invoke -f dbInitializer -l
+  rds:
+    host: tnchallenge.c9guk4iumyrk.us-east-1.rds.amazonaws.com
+    port: 5432
+    dbName: tnchallenge
+    username: postgres
+    resourceId: db-4QGU7TG5ISJP4SV4QHQESLYHO4
+    secretArn: arn:aws:rds:us-east-1:010438485555:subgrp:default-vpc-07d63f61f61665720
+    password: TNChallenge
+  cognitoUserPoolArn: arn:aws:cognito-idp:us-east-1:010438485555:userpool/us-east-1_py2mgDFpf
+
+resources:
+  Resources:
+    CognitoUserPoolLambdaPermission:
+      Type: AWS::Lambda::Permission
+      Properties:
+        Action: lambda:InvokeFunction
+        FunctionName: 
+          Fn::GetAtt: [PostConfirmationLambdaFunction, Arn]
+        Principal: cognito-idp.amazonaws.com
+        SourceArn: ${self:custom.cognitoUserPoolArn}
+
+plugins:
+  - serverless-offline
+  - serverless-dotenv-plugin
+  - serverless-plugin-scripts
+
+package:
+  individually: true
+  patterns:
+    - '!./**'
+    - src/db/**

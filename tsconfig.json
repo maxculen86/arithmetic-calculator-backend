@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "ES2018",
+    "module": "commonjs",
+    "lib": ["ES2018"],
+    "types": ["jest","node"],
+    "esModuleInterop": true,
+    // ... other options
+  },
+  "include": ["src/**/*"],
+  "copy": ["src/**/*.sql"]
+}
