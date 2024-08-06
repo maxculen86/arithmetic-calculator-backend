@@ -26,7 +26,7 @@ arithmetic-calculator-backend/
 ├── serverless.yml
 ├── serverlessBKP.yml
 └── tsconfig.json
-```bash
+```
 
 ## Technologies Used
 
