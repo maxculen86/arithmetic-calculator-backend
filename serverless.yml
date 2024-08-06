@@ -63,28 +63,28 @@ provider:
 
 functions:
   newOperation:
-    handler: src/handlers/operations/operations.newOperation
+    handler: src/handlers/v1/operations/operations.newOperation
     events:
       - httpApi:
-          path: /operation
+          path: /v1/operation
           method: POST
   updateBalance:
-    handler: src/handlers/user/updateBalance.handler
+    handler: src/handlers/v1/user/updateBalance.handler
     events:
       - httpApi:
-          path: /update-balance
+          path: /v1/update-balance
           method: POST
   getUserRecords:
-    handler: src/handlers/records/getUserRecords.handler
+    handler: src/handlers/v1/records/getUserRecords.handler
     events:
       - httpApi:
-          path: /user-records
+          path: /v1/user-records
           method: GET
   deleteRecord:
-    handler: src/handlers/records/deleteRecord.handler
+    handler: src/handlers/v1/records/deleteRecord.handler
     events:
       - httpApi:
-          path: /record-delete
+          path: /v1/record-delete
           method: PATCH
   dbInitializer:
     handler: src/db/sqlrunner.handler
@@ -104,11 +104,11 @@ functions:
         - subnet-0a37aaa898d3a21ce
     events:
       - http:
-          path: initialize-db
+          path: v1/initialize-db
           method: post
           private: true
   postConfirmation:
-    handler: src/handlers/user/postConfirmation.handler
+    handler: src/handlers/v1/user/postConfirmation.handler
     events:
       - cognitoUserPool:
           pool: arithmeticcalculator1b6f88ba_userpool_1b6f88ba-dev

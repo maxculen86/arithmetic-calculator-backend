@@ -1,5 +1,5 @@
 import { APIGatewayProxyResult, Callback, Context } from 'aws-lambda';
-import { handler } from '../../handlers/user/updateBalance';
+import { handler } from '../../handlers/v1/user/updateBalance';
 import { logError, logInfo } from '../../utils/logger';
 import { parseBody, validateUpdateBalanceInput } from '../../utils/requestParser';
 import { updateUserBalance } from '../../services/userService';

@@ -1,8 +1,8 @@
 import { APIGatewayProxyHandler, APIGatewayProxyResult } from "aws-lambda";
-import { logError, logInfo } from "../../utils/logger";
-import { parseBody, validateUpdateBalanceInput } from "../../utils/requestParser";
-import { updateUserBalance } from "../../services/userService";
-import { createResponse, handleError } from "../../utils/responseHandler";
+import { logError, logInfo } from "../../../utils/logger";
+import { parseBody, validateUpdateBalanceInput } from "../../../utils/requestParser";
+import { updateUserBalance } from "../../../services/userService";
+import { createResponse, handleError } from "../../../utils/responseHandler";
 
 /**
  * Handles the update balance request for a user.

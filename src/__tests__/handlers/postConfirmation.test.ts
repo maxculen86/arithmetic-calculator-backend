@@ -1,5 +1,5 @@
 import { PostConfirmationTriggerEvent, Context, Callback } from 'aws-lambda';
-import { handler } from '../../handlers/user/postConfirmation';
+import { handler } from '../../handlers/v1/user/postConfirmation';
 import { createUser } from '../../services/userService';
 import { logError, logEvent } from '../../utils/logger';
 

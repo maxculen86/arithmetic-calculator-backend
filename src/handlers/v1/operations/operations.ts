@@ -1,7 +1,7 @@
 import { APIGatewayProxyHandler, APIGatewayProxyResult } from 'aws-lambda';
-import { getUserById, updateUserBalance } from '../../services/userService';
-import { getOperationByType, performOperation } from '../../services/operationService';
-import { createRecord } from '../../services/recordService';
+import { getUserById, updateUserBalance } from '../../../services/userService';
+import { getOperationByType, performOperation } from '../../../services/operationService';
+import { createRecord } from '../../../services/recordService';
 import moment from 'moment';
 
 /**

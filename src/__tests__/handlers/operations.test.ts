@@ -1,5 +1,5 @@
 import { APIGatewayProxyEvent, Context, Callback, APIGatewayProxyResult } from 'aws-lambda';
-import { newOperation } from '../../handlers/operations/operations';
+import { newOperation } from '../../handlers/v1/operations/operations';
 import { getUserById, updateUserBalance } from '../../services/userService';
 import { getOperationByType, performOperation } from '../../services/operationService';
 import { createRecord } from '../../services/recordService';

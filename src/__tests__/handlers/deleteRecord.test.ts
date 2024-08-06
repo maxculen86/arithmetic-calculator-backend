@@ -1,5 +1,5 @@
 import { APIGatewayProxyEventV2, Context, Callback, APIGatewayProxyResultV2 } from 'aws-lambda';
-import { handler } from '../../handlers/records/deleteRecord';
+import { handler } from '../../handlers/v1/records/deleteRecord';
 import { softDeleteRecord } from '../../services/recordService';
 
 jest.mock('../../services/recordService');

@@ -1,5 +1,5 @@
 import { APIGatewayProxyEventV2, APIGatewayProxyResultV2, Callback, Context } from 'aws-lambda';
-import { handler } from '../../handlers/records/getUserRecords';
+import { handler } from '../../handlers/v1/records/getUserRecords';
 import { getUserRecords } from '../../services/recordService';
 
 jest.mock('../../services/recordService');

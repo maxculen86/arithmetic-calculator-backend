@@ -1,6 +1,6 @@
 import { PostConfirmationTriggerEvent, Context, Callback } from 'aws-lambda';
-import { createUser } from '../../services/userService';
-import { logError, logEvent } from '../../utils/logger';
+import { createUser } from '../../../services/userService';
+import { logError, logEvent } from '../../../utils/logger';
 
 /**
  * Handles the post-confirmation event triggered after a user signs up.

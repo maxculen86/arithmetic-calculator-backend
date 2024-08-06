@@ -1,5 +1,5 @@
 import { APIGatewayProxyHandlerV2 } from 'aws-lambda';
-import { softDeleteRecord } from '../../services/recordService';
+import { softDeleteRecord } from '../../../services/recordService';
 
 /**
  * Handles the soft deletion of a record.

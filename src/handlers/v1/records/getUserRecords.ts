@@ -1,6 +1,6 @@
 import { APIGatewayProxyHandlerV2 } from 'aws-lambda';
-import { getUserRecords } from '../../services/recordService';
-import { SortableField } from '../../models/Record';
+import { getUserRecords } from '../../../services/recordService';
+import { SortableField } from '../../../models/Record';
 
 interface QueryParams {
   userId: string;
