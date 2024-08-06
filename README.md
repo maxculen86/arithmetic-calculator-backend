@@ -1,6 +1,7 @@
 # Arithmetic Calculator Backend
 
 This is the backend service for the Arithmetic Calculator application. It provides APIs for performing arithmetic operations, managing user balances, and handling user records.
+This project is self-hosted and runs on AWS. It only needs to be run locally for development or testing purposes.
 
 
 ## Project Structure
